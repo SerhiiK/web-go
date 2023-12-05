@@ -26,20 +26,21 @@ func pathHandler(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// type Router struct{}
-//
-// func (router Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
-// 	switch r.URL.Path {
-// 	case "/":
-// 		homeHandler(w, r)
-// 	case "/contact":
-// 		contactHandle(w, r)
-// 	default:
-// 		http.Error(w, "Page not found", http.StatusNotFound)
-// 	}
-// }
+type Router struct{}
+
+func (router Router) ServeHTTP(w http.ResponseWriter, r *http.Request) {
+	switch r.URL.Path {
+	case "/":
+		homeHandler(w, r)
+	case "/contact":
+		contactHandle(w, r)
+	default:
+		http.Error(w, "Page not found", http.StatusNotFound)
+	}
+}
 
 func main() {
+	var router Router
 	fmt.Println("Starting server :3000")
-	http.ListenAndServe(":3000", http.HandlerFunc(pathHandler))
+	http.ListenAndServe(":3000", router)
 }
